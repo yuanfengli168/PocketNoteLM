@@ -12,8 +12,10 @@ export function Header({ onClear }: Props) {
 
   async function handleStop() {
     if (!confirm('Stop the backend server? This will take the chatbot offline.')) return
+    const token = prompt('Enter the admin token:')
+    if (!token) return
     setStopping(true)
-    const result = await stopService()
+    const result = await stopService(token)
     setStopMsg(result.message)
     setStopping(false)
     setTimeout(() => setStopMsg(null), 4000)

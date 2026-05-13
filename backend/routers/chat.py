@@ -8,9 +8,11 @@ End of stream is signalled with:  data: [DONE]\n\n
 
 import logging
 
+import re
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session as DBSession
 
 from db.database import get_db
@@ -23,10 +25,20 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+_UUID_RE = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', re.IGNORECASE)
+
+
 class ChatRequest(BaseModel):
     session_id: str
-    message: str
+    message: str = Field(max_length=10_000)
     history: list[dict[str, str]] = []
+
+    @field_validator('session_id')
+    @classmethod
+    def validate_session_id(cls, v: str) -> str:
+        if not _UUID_RE.match(v):
+            raise ValueError('session_id must be a valid UUID')
+        return v
 
 
 async def _stream_response(request: ChatRequest, db: DBSession):

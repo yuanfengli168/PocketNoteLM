@@ -118,7 +118,7 @@ def ingest_documents() -> dict[str, int]:
 
     if not docs_path.exists():
         logger.warning("Docs folder does not exist: %s", docs_path)
-        return {"files_found": 0, "chunks_indexed": 0}
+        return {"files_found": 0, "chunks_indexed": 0, "skipped": False}
 
     files = sorted(p for p in docs_path.rglob("*") if p.suffix.lower() in SUPPORTED_EXTENSIONS)
     logger.info("Found %d document(s) to ingest", len(files))
@@ -152,7 +152,7 @@ def ingest_documents() -> dict[str, int]:
 
     if not raw_docs:
         logger.info("No content extracted from documents.")
-        return {"files_found": len(files), "chunks_indexed": 0}
+        return {"files_found": len(files), "chunks_indexed": 0, "skipped": False}
 
     chroma_dir = Path(settings.chroma_persist_dir)
     if chroma_dir.exists():
@@ -188,4 +188,4 @@ def ingest_documents() -> dict[str, int]:
     finally:
         db.close()
 
-    return {"files_found": len(files), "chunks_indexed": len(chunks)}
+    return {"files_found": len(files), "chunks_indexed": len(chunks), "skipped": False}

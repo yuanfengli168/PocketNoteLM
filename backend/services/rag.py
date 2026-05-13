@@ -84,11 +84,16 @@ def _make_llm():
 @lru_cache(maxsize=1)
 def get_vector_store() -> Chroma:
     settings = get_settings()
-    return Chroma(
-        collection_name="pocketnotelm_docs",
-        embedding_function=_make_embeddings(),
-        persist_directory=settings.chroma_persist_dir,
-    )
+    try:
+        return Chroma(
+            collection_name="pocketnotelm_docs",
+            embedding_function=_make_embeddings(),
+            persist_directory=settings.chroma_persist_dir,
+        )
+    except Exception as exc:
+        raise RuntimeError(
+            f"Failed to initialise ChromaDB at '{settings.chroma_persist_dir}': {exc}"
+        ) from exc
 
 
 @lru_cache(maxsize=1)
