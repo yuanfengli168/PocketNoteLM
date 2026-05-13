@@ -40,7 +40,7 @@ allow_origins=["*"],
 
 Any malicious website can make requests to the backend.
 
-**Fix**: Restrict to `http://localhost:4173` for local deployment.
+**Fix**: Restrict to `http://localhost:4172` for local deployment.
 
 ---
 
