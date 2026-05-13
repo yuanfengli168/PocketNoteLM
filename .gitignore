@@ -1,0 +1,23 @@
+# VS Code
+.vscode/
+
+# Environment variables
+.env
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# mock tests
+mock_tests/
