@@ -35,7 +35,7 @@ The app is served locally via `vite preview`. It can auto-start on login via `la
 
 ```bash
 npm run build     # compile to dist/
-npm run preview   # serve dist/ at http://localhost:4173
+npm run preview   # serve dist/ at http://localhost:4172
 ```
 
 ### launchd service (macOS auto-start)

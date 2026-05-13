@@ -22,3 +22,12 @@ env/
 # mock tests
 mock_tests/
 mockTestsIgnore/
+
+# ChromaDB vector store (generated, user-specific)
+backend/chroma_db/
+
+# SQLite databases (contain user data)
+backend/*.db
+
+# Root package-lock.json (accidental, belongs in frontend/)
+/package-lock.json

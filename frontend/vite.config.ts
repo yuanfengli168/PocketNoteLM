@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/',
   preview: {
     host: '0.0.0.0', // Accessible to everyone on the local network
-    port: 4173,
+    port: 4172,
     strictPort: true,
   },
   server: {

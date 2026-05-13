@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     # Ollama
     ollama_base_url: str = "http://localhost:11434"
     ## ollama model qwen3:14b works, and is very fast.
-    #ollama_model: str = "qwen3:14b"
+    ollama_model: str = "qwen3:14b"
     # change to qwen3:32b for better embeddings if you have the resources (needs pull of ~20GB)
-    ollama_model: str = "qwen3:32b"
+    #ollama_model: str = "qwen3:32b"
     ollama_embedding_model: str = "nomic-embed-text"
 
     # Docs

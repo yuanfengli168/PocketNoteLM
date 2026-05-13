@@ -89,7 +89,7 @@ cd backend && python main.py
 cd frontend && npm run preview
 ```
 
-Open [http://localhost:4173](http://localhost:4173).
+Open [http://localhost:4172](http://localhost:4172).
 
 ### Environment Variables
 
@@ -98,7 +98,7 @@ LLM_PROVIDER=ollama
 OLLAMA_MODEL=qwen3:14b
 OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 OLLAMA_BASE_URL=http://localhost:11434
-DOCS_FOLDER_PATH=/path/to/your/documents
+DOCS_FOLDER_PATH=/path/to/your/documents (please restart backend, if new documents added, including the first time)
 ADMIN_TOKEN=change-me-to-a-strong-secret
 ```
 
