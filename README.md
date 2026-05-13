@@ -74,7 +74,7 @@ cp .env.example .env
 # Edit .env — set DOCS_FOLDER_PATH to your documents folder
 
 # Frontend setup
-cd ../frontend
+cd frontend
 npm install
 npm run build
 ```
