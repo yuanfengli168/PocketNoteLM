@@ -21,3 +21,4 @@ env/
 
 # mock tests
 mock_tests/
+mockTestsIgnore/
