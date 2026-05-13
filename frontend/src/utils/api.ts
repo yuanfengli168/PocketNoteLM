@@ -1,7 +1,6 @@
 import type { ChatRequest } from '../types'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
-const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN ?? ''
 
 /**
  * Sends a chat message and streams the response token by token.
@@ -49,6 +48,8 @@ export async function streamChat(
           const token = line.slice(6)
           if (token === '[DONE]') break
           onToken(token)
+        } else if (line.trim() && !line.startsWith(':')) {
+          console.warn('[SSE] Unexpected line format:', line)
         }
       }
     }
@@ -62,11 +63,11 @@ export async function streamChat(
 /**
  * Sends a stop signal to gracefully shut down the backend server.
  */
-export async function stopService(): Promise<{ ok: boolean; message: string }> {
+export async function stopService(token: string): Promise<{ ok: boolean; message: string }> {
   try {
     const res = await fetch(`${API_URL}/admin/stop`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+      headers: { Authorization: `Bearer ${token}` },
     })
     const data = await res.json().catch(() => ({ message: 'No response body' }))
     return { ok: res.ok, message: data.message ?? 'Done' }

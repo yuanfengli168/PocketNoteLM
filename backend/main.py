@@ -1,5 +1,5 @@
 """
-Vizor PS Chatbot — FastAPI backend entry point.
+PocketNoteLM — FastAPI backend entry point.
 
 Startup sequence:
 1. Init SQLite tables
@@ -35,7 +35,9 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Starting up Vizor PS Chatbot backend…")
+    logger.info("Starting up PocketNoteLM backend…")
+    settings = get_settings()
+    logger.info("Admin token: %s  (set ADMIN_TOKEN in .env to pin this value)", settings.admin_token)
     init_db()
     logger.info("Database initialised.")
     try:
@@ -48,7 +50,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Vizor PS Chatbot API",
+    title="PocketNoteLM API",
     version="0.1.0",
     lifespan=lifespan,
 )
@@ -56,7 +58,7 @@ app = FastAPI(
 # CORS — allow the frontend origin (update when deploying)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Tighten to specific origins when auth is added
+    allow_origins=["http://localhost:4172", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

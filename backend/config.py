@@ -1,3 +1,4 @@
+import secrets
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -25,7 +26,7 @@ class Settings(BaseSettings):
     docs_folder_path: str = "./docs"
 
     # Admin
-    admin_token: str = "change-me"
+    admin_token: str = secrets.token_hex(32)
 
     # Server
     host: str = "0.0.0.0"
